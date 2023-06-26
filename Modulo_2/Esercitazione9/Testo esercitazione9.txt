@@ -1,0 +1,13 @@
+Realizzare un'applicazione per gestire una lista di punti nel piano cartesiano.
+
+L’applicazione deve gestire ciascun punto come una struttura con tre campi, che rappresentano il colore del punto (rappresentato da una stringa di 20 caratteri) e le coordinate del punto nel piano. 
+
+L’applicazione deve permettere all’utente di svolgere le seguenti funzionalità.
+
+Visualizzazione della lista di punti.
+Inserimento di un nuovo punto in testa alla lista, dopo aver letto le sue coordinate e il suo colore da tastiera. 
+Cancellazione del punto a coordinata y minima.
+Calcolo e stampa dei due punti nella lista la cui distanza Euclidea è minima.
+Visualizzazione dei punti che hanno un certo colore (a scelta dell'utente).
+Promemoria: La distanza fra due punti (x1, y1) e (x2, y2) è la radice quadrata di (x2-x1)2+(y2-y1)2. 
+
