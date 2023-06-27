@@ -37,17 +37,16 @@ e se il fritto è surgelato oppure no.*/
 //* DONE
 void stampaLista(N *head)
 {
-    N *newHead = head;
-    if (newHead == NULL)
+    if (head == NULL)
         printf("\nLista vuota\n");
     else
     {
-        while (newHead != NULL)
+        while (head != NULL)
         {
-            printf("\nNome: %s", newHead->fritto.nome);
-            printf("\nStato: %c", newHead->fritto.stato);
-            printf("\nPrezzo: %f\n", newHead->fritto.prezzo);
-            newHead = newHead->next;
+            printf("\nNome: %s", head->fritto.nome);
+            printf("\nStato: %c", head->fritto.stato);
+            printf("\nPrezzo: %f\n", head->fritto.prezzo);
+            head = head->next;
         }
     }
 }
