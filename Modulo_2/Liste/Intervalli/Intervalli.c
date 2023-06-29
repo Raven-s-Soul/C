@@ -18,10 +18,22 @@ typedef struct nodo
 N *addList(N *head)
 {
     N *newNodo = malloc(sizeof(N));
-    printf("\nInserire a: ");
-    scanf("%d", &newNodo->a);
-    printf("\nInserire b: ");
-    scanf("%d", &newNodo->b);
+    int status = 1;
+    do
+    {
+        printf("\nInserire a: ");
+        scanf("%d", &newNodo->a);
+        printf("\nInserire b: ");
+        scanf("%d", &newNodo->b);
+
+        if (newNodo->a > newNodo->b || newNodo->b < 0 || newNodo->a < 0)
+        {
+            printf("\nErrore riprovare inserire a < b positivi");
+        }
+        else
+            status = 0;
+
+    } while (status != 0);
 
     newNodo->next = head;
     return newNodo;
