@@ -58,6 +58,28 @@ void printList(N *head)
     }
 }
 
+void intersezione(N *head)
+{
+
+    for (N *j = head; j != NULL; j = j->next)
+    {
+        int intersezioni = 0;
+        for (N *i = head; i->next != NULL; i = i->next)
+        {
+            //! PLS HELP cant find the right combination :(
+            if (((j->a <= i->a) && ((i->a <= j->b))) ||
+                ((j->b >= i->a) && ((i->a >= j->a))))
+            {
+                intersezioni++;
+                // printf("\nTest");
+                // printf("\na: %d", j->a);
+                // printf(" b: %d \n", j->b);
+            }
+        }
+        printf("\n %d Intersezione presente in %d - %d\n", intersezioni, j->a, j->b);
+    }
+}
+
 N *cancellaLista(N *head)
 {
 
@@ -136,7 +158,7 @@ int main()
 
     do
     {
-        printf("\n0 uscire - 1 aggiungere - 2 cancellare - 3 stampare - 4 ordinamento\n");
+        printf("\n0 uscire - 1 aggiungere - 2 cancellare - 3 stampare - 4 ordinamento - 5 intersezione\n");
         scanf("%d", &scelta);
         if (scelta == 0)
         {
@@ -157,6 +179,10 @@ int main()
         else if (scelta == 4)
         {
             head = ordinamento(head);
+        }
+        else if (scelta == 5)
+        {
+            intersezione(head);
         }
         else
         {
