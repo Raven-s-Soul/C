@@ -66,9 +66,9 @@ void intersezione(N *head)
         int intersezioni = 0;
         for (N *i = head; i->next != NULL; i = i->next)
         {
-            //! Intersezione
-            if (((j->a <= i->a) && ((i->a <= j->b))) ||
-                ((j->b >= i->a) && ((i->a >= j->a))))
+            //! Intersezione cant find the right combination
+            if (((j->a <= i->a) && ((i->a <= j->b) || (i->a >= j->b))) ||
+                ((j->b >= i->a) && ((i->b >= j->b) || (i->a <= j->a))))
             {
                 intersezioni++;
                 // printf("\nTest");
