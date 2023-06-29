@@ -1,15 +1,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// typedef struct Intervallo
-// {
-//     //! a<=b
-//     int a, b;
-// } I;
+#define fname "invervalli.dat"
+
+typedef struct Intervallo
+{
+    //! a<=b
+    int a, b;
+} I;
 
 typedef struct nodo
 {
-    int a, b; // intervallo
+    I intervallo; // intervallo
     struct nodo *next;
 
 } N;
@@ -22,11 +24,11 @@ N *addList(N *head)
     do
     {
         printf("\nInserire a: ");
-        scanf("%d", &newNodo->a);
+        scanf("%d", &newNodo->intervallo.a);
         printf("\nInserire b: ");
-        scanf("%d", &newNodo->b);
+        scanf("%d", &newNodo->intervallo.b);
 
-        if (newNodo->a > newNodo->b || newNodo->b < 0 || newNodo->a < 0)
+        if (newNodo->intervallo.a > newNodo->intervallo.b || newNodo->intervallo.b < 0 || newNodo->intervallo.a < 0)
         {
             printf("\nErrore riprovare inserire a < b positivi");
         }
@@ -51,8 +53,8 @@ void printList(N *head)
         for (int i = 0; head != NULL; i++)
         {
             printf("\nSegmento  \"%d\"", i + 1);
-            printf("\na: %d", head->a);
-            printf(" b: %d \n", head->b);
+            printf("\na: %d", head->intervallo.a);
+            printf(" b: %d \n", head->intervallo.b);
             head = head->next;
         }
     }
@@ -67,8 +69,10 @@ void intersezione(N *head)
         for (N *i = head; i->next != NULL; i = i->next)
         {
             //! Intersezione cant find the right combination
-            if (((j->a <= i->a) && ((i->a <= j->b) || (i->a >= j->b))) ||
-                ((j->b >= i->a) && ((i->b >= j->b) || (i->a <= j->a))))
+            if (((j->intervallo.a <= i->intervallo.a) && ((i->intervallo.a <= j->intervallo.b) || (i->intervallo.a >= j->intervallo.b))) &&
+                    ((j->intervallo.b >= i->intervallo.a) && ((i->intervallo.a <= j->intervallo.a) || (i->intervallo.a >= j->intervallo.a))) ||
+                ((j->intervallo.a >= i->intervallo.a) && ((i->intervallo.a >= j->intervallo.b) || (i->intervallo.a <= j->intervallo.b))) &&
+                    ((j->intervallo.b <= i->intervallo.a) && ((i->intervallo.a >= j->intervallo.a) || (i->intervallo.a <= j->intervallo.a))))
             {
                 intersezioni++;
                 // printf("\nTest");
@@ -76,7 +80,7 @@ void intersezione(N *head)
                 // printf(" b: %d \n", j->b);
             }
         }
-        printf("\n %d Intersezione presente in %d - %d\n", intersezioni, j->a, j->b);
+        printf("\n %d Intersezione presente in %d - %d\n", intersezioni, j->intervallo.a, j->intervallo.b);
     }
 }
 
@@ -124,31 +128,72 @@ N *ordinamento(N *head)
             for (N *i = rehead; i->next != NULL; i = i->next)
             {
                 // printf("\nOrdinamento");
-                if (i->a >= i->next->a)
+                if (i->intervallo.a >= i->next->intervallo.a)
                 {
                     // printf("\ntest");
                     trovato = 1;
-                    if (i->a > i->next->a)
+                    if (i->intervallo.a > i->next->intervallo.a)
                     {
                         N backup = *i;
-                        i->a = i->next->a;
-                        i->b = i->next->b;
-                        i->next->a = backup.a;
-                        i->next->b = backup.b;
+                        i->intervallo.a = i->next->intervallo.a;
+                        i->intervallo.b = i->next->intervallo.b;
+                        i->next->intervallo.a = backup.intervallo.a;
+                        i->next->intervallo.b = backup.intervallo.b;
                     }
-                    else if (i->b > i->next->b)
+                    else if (i->intervallo.b > i->next->intervallo.b)
                     {
                         N backup = *i;
-                        i->a = i->next->a;
-                        i->b = i->next->b;
-                        i->next->a = backup.a;
-                        i->next->b = backup.b;
+                        i->intervallo.a = i->next->intervallo.a;
+                        i->intervallo.b = i->next->intervallo.b;
+                        i->next->intervallo.a = backup.intervallo.a;
+                        i->next->intervallo.b = backup.intervallo.b;
                     }
                 }
             }
         }
     }
     return head;
+}
+
+N *letturaFile(N *head)
+{
+    FILE *fp = fopen(fname, "rb");
+    if (!fp)
+    {
+        printf("\nImpossibile leggere file\n");
+    }
+    else
+    {
+        N *buffer = malloc(sizeof(N));
+        while (fread(&buffer->intervallo, sizeof(I), 1, fp) > 0)
+        {
+            N *newNodo = malloc(sizeof(N));
+            newNodo->intervallo = buffer->intervallo;
+            newNodo->next = head;
+            head = newNodo;
+        }
+        free(buffer);
+    }
+    fclose(fp);
+    return head;
+}
+
+void scritturaFile(N *head)
+{
+    FILE *fp = fopen(fname, "wb");
+    if (!fp)
+    {
+        printf("\nImpossibile scrivere file\n");
+    }
+    else
+    {
+        while (head != NULL)
+        {
+            fwrite(&head->intervallo, sizeof(I), 1, fp);
+            head = head->next;
+        }
+    }
+    fclose(fp);
 }
 
 int main()
@@ -158,11 +203,29 @@ int main()
 
     do
     {
+        printf("\n1 leggere dal file - 2 no file\n");
+        scanf("%d", &scelta);
+        if (scelta == 1)
+        {
+            head = letturaFile(head);
+        }
+        else if (scelta == 2)
+        {
+        }
+        else
+        {
+            printf("\nScelta non valida\n");
+        }
+    } while (scelta != 1 && scelta != 2);
+
+    do
+    {
         printf("\n0 uscire - 1 aggiungere - 2 cancellare - 3 stampare - 4 ordinamento - 5 intersezione\n");
         scanf("%d", &scelta);
         if (scelta == 0)
         {
             printf("\nChiusura in corso");
+            scritturaFile(head);
         }
         else if (scelta == 1)
         {
