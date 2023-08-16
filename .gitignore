@@ -1,3 +1,14 @@
+*
+#all files
+!*.c
+#not .c files
+!*/
+#not folders
+!*.dat
+!*.pdf
+!*.txt
+!*.docx
+
 tempCodeRunnerFile.c
 tempCodeRunnerFile.exe
 
