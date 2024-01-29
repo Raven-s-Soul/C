@@ -4,7 +4,7 @@ Divide et impera.
 
 ## Installation
 
-Compiler: [tdm-gcc](https://jmeubank.github.io/tdm-gcc/download/)
+Compiler: Any <!--  [tdm-gcc](https://jmeubank.github.io/tdm-gcc/download/) -->
 
 Editor/IDE [vsCode](https://code.visualstudio.com) or [SublimeText](https://www.sublimetext.com/download)
 
