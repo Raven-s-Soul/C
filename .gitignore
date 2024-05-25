@@ -2,6 +2,8 @@
 #all files
 !*.c
 #not .c files
+!*.png
+!*.excalidraw
 !*/
 #not folders
 !*.dat
