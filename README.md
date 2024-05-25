@@ -24,7 +24,7 @@ Editor/IDE [vsCode](https://code.visualstudio.com) or [SublimeText](https://www.
 >
 > ![VarGlobali sconsigliate?](./Teoria/Memes/VarGlobali.png?raw=true)
 >
-> **_Unreasonable penalities_**
+> **_Unreasonable penalties_**
 >
 > ![if(condizone == true) print("Positive") else print("Negative")](./Teoria/Memes/Output.png?raw=true)
 
