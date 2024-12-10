@@ -12,8 +12,8 @@ Editor/IDE [vsCode](https://code.visualstudio.com) or [SublimeText](https://www.
 
 ```c
 //Praying C
-#define cplusplus 1
-#define C cplusplus
+#define class struct
+#define true false
 ```
 
 ![meme](./Teoria/Memes/meme.png?raw=true)
